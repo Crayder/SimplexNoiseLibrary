@@ -1,0 +1,9 @@
+c:\users\crayd\source\repos\Solution1\NoiseLib\bin\Debug\netstandard2.0\NoiseLib.deps.json
+c:\users\crayd\source\repos\Solution1\NoiseLib\bin\Debug\netstandard2.0\NoiseLib.dll
+c:\users\crayd\source\repos\Solution1\NoiseLib\bin\Debug\netstandard2.0\NoiseLib.pdb
+c:\users\crayd\source\repos\Solution1\NoiseLib\obj\Debug\netstandard2.0\NoiseLib.csprojAssemblyReference.cache
+c:\users\crayd\source\repos\Solution1\NoiseLib\obj\Debug\netstandard2.0\NoiseLib.csproj.CoreCompileInputs.cache
+c:\users\crayd\source\repos\Solution1\NoiseLib\obj\Debug\netstandard2.0\NoiseLib.AssemblyInfoInputs.cache
+c:\users\crayd\source\repos\Solution1\NoiseLib\obj\Debug\netstandard2.0\NoiseLib.AssemblyInfo.cs
+c:\users\crayd\source\repos\Solution1\NoiseLib\obj\Debug\netstandard2.0\NoiseLib.dll
+c:\users\crayd\source\repos\Solution1\NoiseLib\obj\Debug\netstandard2.0\NoiseLib.pdb
