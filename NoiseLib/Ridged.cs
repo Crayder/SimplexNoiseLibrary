@@ -2,7 +2,7 @@
 
 namespace Noise
 {
-    public class RidgedNoise
+    public class Ridged
     {
         public static float[] Calc1D(int width, float scale)
         {
@@ -46,26 +46,26 @@ namespace Noise
             return Generate(x * scale, y * scale, z * scale) * 128 + 128;
         }
 
-        static RidgedNoise()
+        static Ridged()
         {
         }
 
-        internal static float Generate(float x)
+        public static float Generate(float x)
         {
             return 1.0f - Math.Abs(Perlin.Generate(x));
         }
 
-        internal static float Generate(float x, float y)
+        public static float Generate(float x, float y)
         {
             return 1.0f - Math.Abs(Perlin.Generate(x, y));
         }
 
-        internal static float Generate(float x, float y, float z)
+        public static float Generate(float x, float y, float z)
         {
             return 1.0f - Math.Abs(Perlin.Generate(x, y, z));
         }
 
-        internal static float Generate(float x, float y, float z, float w)
+        public static float Generate(float x, float y, float z, float w)
         {
             return 1.0f - Math.Abs(Perlin.Generate(x, y, z, w));
         }

@@ -33,7 +33,7 @@ namespace Noise
             return Generate(x * scale, y * scale, z * scale, angle) * 128 + 128;
         }
 
-        internal static float Generate(float x, float y, float angle)
+        public static float Generate(float x, float y, float angle)
         {
             const float F2 = 0.366025403f;
             const float G2 = 0.211324865f;
@@ -120,7 +120,7 @@ namespace Noise
             return 40.0f * (n0 + n1 + n2);
         }
 
-        internal static float Generate(float x, float y, float z, float angle)
+        public static float Generate(float x, float y, float z, float angle)
         {
             const float F3 = 0.333333333f;
             const float G3 = 0.166666667f;
@@ -256,7 +256,7 @@ namespace Noise
             return 28.0f * (n0 + n1 + n2 + n3);
         }
 
-        internal static void GenerateDerivitives(float x, float y, float angle, out float rx, out float ry, out float rz)
+        public static void GenerateDerivitives(float x, float y, float angle, out float rx, out float ry, out float rz)
         {
             const float F2 = 0.366025403f;
             const float G2 = 0.211324865f;
@@ -375,7 +375,7 @@ namespace Noise
             ry = dnoise_dx;
             rz = dnoise_dy;
         }
-        internal static void GenerateDerivitives(float x, float y, float z, float angle, out float rx, out float ry, out float rz, out float rw)
+        public static void GenerateDerivitives(float x, float y, float z, float angle, out float rx, out float ry, out float rz, out float rw)
         {
             const float F3 = 0.333333333f;
             const float G3 = 0.166666667f;
@@ -562,7 +562,7 @@ namespace Noise
             rw = dnoise_dz;
         }
 
-        internal static void GenerateCurl(float x, float y, float t, out float rx, out float ry)
+        public static void GenerateCurl(float x, float y, float t, out float rx, out float ry)
         {
             GenerateDerivitives(x, y, t, out float dx, out float dy, out float dz);
             rx = dz;

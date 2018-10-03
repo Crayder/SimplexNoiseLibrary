@@ -1,11 +1,7 @@
 ﻿using System;
 
 namespace Noise
-{
-    /// <summary>
-    /// Implementation of the Perlin simplex noise, an improved Perlin noise algorithm.
-    /// Based loosely on SimplexNoise1234 by Stefan Gustavson <http://staffwww.itn.liu.se/~stegu/aqsis/aqsis-newnoise/>
-    /// </summary>
+{ 
     public class Perlin
     {
         public static float[] Calc1D(int width, float scale)
@@ -82,7 +78,7 @@ namespace Noise
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        internal static float Generate(float x)
+        public static float Generate(float x)
         {
             int i0 = FastFloor(x);
             int i1 = i0 + 1;
@@ -109,7 +105,7 @@ namespace Noise
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        internal static float Generate(float x, float y)
+        public static float Generate(float x, float y)
         {
             const float F2 = 0.366025403f; // F2 = 0.5*(sqrt(3.0)-1.0)
             const float G2 = 0.211324865f; // G2 = (3.0-Math.sqrt(3.0))/6.0
@@ -179,7 +175,7 @@ namespace Noise
         }
 
 
-        internal static float Generate(float x, float y, float z)
+        public static float Generate(float x, float y, float z)
         {
             // Simple skewing factors for the 3D case
             const float F3 = 0.333333333f;
@@ -294,7 +290,7 @@ namespace Noise
         };
 
         // 4D simplex noise
-        internal static float Generate(float x, float y, float z, float w)
+        public static float Generate(float x, float y, float z, float w)
         {
             const float F4 = 0.309016994f; // F4 = (Math.sqrt(5.0)- 1.0)/ 4.0
             const float G4 = 0.138196601f; // G4 = (5.0 -Math.sqrt(5.0))/ 20.0
@@ -432,7 +428,55 @@ namespace Noise
             return 27.0f * (n0 + n1 + n2 + n3 + n4); // TODO: The scale factor is preliminary!
         }
 
-        internal static void GenerateDerivitives(float x, float y, out float rx, out float ry, out float rz)
+        public static void GenerateDerivitives(float x, out float rx, out float ry)
+        {
+            int i0 = FastFloor(x);
+            int i1 = i0 + 1;
+            float x0 = x - i0;
+            float x1 = x0 - 1.0f;
+
+            float gx0 = 0.0f, gx1 = 0.0f;
+            float n0, n1;
+            float t20, t40, t21, t41;
+
+            float x20 = x0 * x0;
+            float t0 = 1.0f - x20;
+            //  if(t0 < 0.0) t0 = 0.0; // Never happens for 1D: x0 <= 1 always
+            t20 = t0 * t0;
+            t40 = t20 * t20;
+            grad(perm[i0 & 0xff], gx0);
+            n0 = t40 * gx0 * x0;
+
+            float x21 = x1 * x1;
+            float t1 = 1.0f - x21;
+            //  if(t1 < 0.0) t1 = 0.0; // Never happens for 1D: |x1|<= 1 always
+            t21 = t1 * t1;
+            t41 = t21 * t21;
+            grad(perm[i1 & 0xff], gx1);
+            n1 = t41 * gx1 * x1;
+
+            /* Compute derivative according to:
+             *  * dnoise_dx = - 8.0 * t20 * t0 * x0 * (gx0 * x0) + t40 * gx0;
+             *  * dnoise_dx += - 8.0 * t21 * t1 * x1 * (gx1 * x1) + t41 * gx1;
+             */
+            float dnoise_dx = t20 * t0 * gx0 * x20;
+            dnoise_dx += t21 * t1 * gx1 * x21;
+            dnoise_dx *= -8.0f;
+            dnoise_dx += t40 * gx0 + t41 * gx1;
+            dnoise_dx *= 0.25f; /* Scale derivative to match the noise scaling */
+
+            // The maximum value of this noise is 8 *(3 / 4)^4 = 2.53125
+            // A factor of 0.395 would scale to fit exactly within [- 1,1], but
+            // to better match classic Perlin noise, we scale it down some more.
+            //#if defined SIMPLEX_DERIVATIVES_RESCALE
+            //    rx = 0.3961965135 * (n0 + n1), ry = dnoise_dx;
+            //#else
+            rx = 0.25f * (n0 + n1);
+            ry = dnoise_dx;
+//#endif
+        }
+
+        public static void GenerateDerivitives(float x, float y, out float rx, out float ry, out float rz)
         {
             const float F2 = 0.366025403f;
             const float G2 = 0.211324865f;
@@ -541,18 +585,18 @@ namespace Noise
 
             // Add contributions from each corner to get the final noise value.
             // The result is scaled to return values in the interval [- 1,1].
-    /*#if defined SIMPLEX_DERIVATIVES_RESCALE
-        rx = 70.175438596 * (n0 + n1 + n2);     // TODO: The scale factor is preliminary!
-        ry = dnoise_dx;
-        rz = dnoise_dy;
-    #else*/
+            /*#if defined SIMPLEX_DERIVATIVES_RESCALE
+                rx = 70.175438596 * (n0 + n1 + n2);     // TODO: The scale factor is preliminary!
+                ry = dnoise_dx;
+                rz = dnoise_dy;
+            #else*/
             rx = 40.0f * (n0 + n1 + n2);
             ry = dnoise_dx;
             rz = dnoise_dy;     // TODO: The scale factor is preliminary!
-    //#endif
+                                //#endif
         }
 
-        internal static void GenerateDerivitives(float x, float y, float z, out float rx, out float ry, out float rz, out float rw)
+        public static void GenerateDerivitives(float x, float y, float z, out float rx, out float ry, out float rz, out float rw)
         {
             const float F3 = 0.333333333f;
             const float G3 = 0.166666667f;
@@ -737,7 +781,7 @@ namespace Noise
             rw = dnoise_dz;
         }
 
-        internal static void GenerateCurl(float x, float y, out float rx, out float ry)
+        public static void GenerateCurl(float x, float y, out float rx, out float ry)
         {
             GenerateDerivitives(x, y, out float dx, out float dy, out float dz);
             rx = dz;

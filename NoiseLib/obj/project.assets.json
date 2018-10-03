@@ -182,11 +182,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\users\\crayd\\source\\repos\\Solution1\\NoiseLib\\Noise.csproj",
+      "projectUniqueName": "C:\\Users\\crayd\\source\\repos\\SimplexNoiseLibrary\\NoiseLib\\Noise.csproj",
       "projectName": "Noise",
-      "projectPath": "c:\\users\\crayd\\source\\repos\\Solution1\\NoiseLib\\Noise.csproj",
+      "projectPath": "C:\\Users\\crayd\\source\\repos\\SimplexNoiseLibrary\\NoiseLib\\Noise.csproj",
       "packagesPath": "C:\\Users\\crayd\\.nuget\\packages\\",
-      "outputPath": "c:\\users\\crayd\\source\\repos\\Solution1\\NoiseLib\\obj\\",
+      "outputPath": "C:\\Users\\crayd\\source\\repos\\SimplexNoiseLibrary\\NoiseLib\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

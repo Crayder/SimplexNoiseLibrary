@@ -2,7 +2,7 @@
 
 namespace Noise
 {
-    public class WorleyNoise
+    public class Worley
     {
         public static float[,] Calc2D(int width, int height, float scale)
         {
@@ -33,11 +33,11 @@ namespace Noise
             return Generate(x * scale, y * scale, z * scale) * 128 + 128;
         }
 
-        static WorleyNoise()
+        static Worley()
         {
         }
 
-        internal static float Generate(float x, float y)
+        public static float Generate(float x, float y)
         {
             float px = (float)Math.Floor(x), py = (float)Math.Floor(y);
             float fx = x - (float)Math.Floor(x), fy = y - (float)Math.Floor(y);
@@ -58,7 +58,7 @@ namespace Noise
             return (float)Math.Sqrt(res);
         }
 
-        internal static float Generate(float x, float y, float z)
+        public static float Generate(float x, float y, float z)
         {
             float px = (float)Math.Floor(x), py = (float)Math.Floor(y), pz = (float)Math.Floor(z);
             float fx = x - (float)Math.Floor(x), fy = y - (float)Math.Floor(y), fz = z - (float)Math.Floor(z);
@@ -83,7 +83,7 @@ namespace Noise
             return (float)Math.Sqrt(res);
         }
 
-        internal static float GenerateSmooth(float x, float y, float falloff)
+        public static float GenerateSmooth(float x, float y, float falloff)
         {
             float px = (float)Math.Floor(x), py = (float)Math.Floor(y);
             float fx = x - (float)Math.Floor(x), fy = y - (float)Math.Floor(y);
@@ -104,7 +104,7 @@ namespace Noise
             return -(1.0f / falloff) * (float)Math.Log10(res);
         }
 
-        internal static float GenerateSmooth(float x, float y, float z, float falloff)
+        public static float GenerateSmooth(float x, float y, float z, float falloff)
         {
             float px = (float)Math.Floor(x), py = (float)Math.Floor(y), pz = (float)Math.Floor(z);
             float fx = x - (float)Math.Floor(x), fy = y - (float)Math.Floor(y), fz = z - (float)Math.Floor(z);
