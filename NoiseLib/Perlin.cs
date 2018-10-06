@@ -4,46 +4,46 @@ namespace Noise
 { 
     public class Perlin
     {
-        public static float[] Calc1D(int width, float scale)
+        public static float[] Calc(int width, float scale = 1.0f)
         {
             float[] values = new float[width];
             for (int i = 0; i < width; i++)
-                values[i] = Generate(i * scale) * 128 + 128;
+                values[i] = Generate(i * scale);
             return values;
         }
 
-        public static float[,] Calc2D(int width, int height, float scale)
+        public static float[,] Calc(int width, int height, float scale = 1.0f)
         {
             float[,] values = new float[width, height];
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
-                    values[i, j] = Generate(i * scale, j * scale) * 128 + 128;
+                    values[i, j] = Generate(i * scale, j * scale);
             return values;
         }
 
-        public static float[,,] Calc3D(int width, int height, int length, float scale)
+        public static float[,,] Calc(int width, int height, int length, float scale = 1.0f)
         {
             float[,,] values = new float[width, height, length];
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                     for (int k = 0; k < length; k++)
-                        values[i, j, k] = Generate(i * scale, j * scale, k * scale) * 128 + 128;
+                        values[i, j, k] = Generate(i * scale, j * scale, k * scale);
             return values;
         }
 
-        public static float CalcPixel1D(int x, float scale)
+        public static float CalcPixel(int x, float scale = 1.0f)
         {
-            return Generate(x * scale) * 128 + 128;
+            return Generate(x * scale);
         }
 
-        public static float CalcPixel2D(int x, int y, float scale)
+        public static float CalcPixel(int x, int y, float scale = 1.0f)
         {
-            return Generate(x * scale, y * scale) * 128 + 128;
+            return Generate(x * scale, y * scale);
         }
 
-        public static float CalcPixel3D(int x, int y, int z, float scale)
+        public static float CalcPixel(int x, int y, int z, float scale = 1.0f)
         {
-            return Generate(x * scale, y * scale, z * scale) * 128 + 128;
+            return Generate(x * scale, y * scale, z * scale);
         }
 
         static Perlin()
@@ -65,7 +65,7 @@ namespace Noise
                 else
                 {
                     perm = new byte[512];
-                    Random random = new Random(value);
+                    System.Random random = new System.Random(value);
                     random.NextBytes(perm);
                 }
             }
@@ -444,7 +444,7 @@ namespace Noise
             //  if(t0 < 0.0) t0 = 0.0; // Never happens for 1D: x0 <= 1 always
             t20 = t0 * t0;
             t40 = t20 * t20;
-            grad(perm[i0 & 0xff], gx0);
+            gradder(perm[i0 & 0xff], out gx0);
             n0 = t40 * gx0 * x0;
 
             float x21 = x1 * x1;
@@ -452,7 +452,7 @@ namespace Noise
             //  if(t1 < 0.0) t1 = 0.0; // Never happens for 1D: |x1|<= 1 always
             t21 = t1 * t1;
             t41 = t21 * t21;
-            grad(perm[i1 & 0xff], gx1);
+            gradder(perm[i1 & 0xff], out gx1);
             n1 = t41 * gx1 * x1;
 
             /* Compute derivative according to:
@@ -529,7 +529,7 @@ namespace Noise
             if (t0 < 0.0f) t40 = t20 = t0 = n0 = gx0 = gy0 = 0.0f; /* No influence */
             else
             {
-                grad(perm[ii + perm[jj]], gx0, gy0);
+                gradder(perm[ii + perm[jj]], out gx0, out gy0);
                 t20 = t0 * t0;
                 t40 = t20 * t20;
                 n0 = t40 * (gx0 * x0 + gy0 * y0);
@@ -540,7 +540,7 @@ namespace Noise
             if (t1 < 0.0f) t21 = t41 = t1 = n1 = gx1 = gy1 = 0.0f; /* No influence */
             else
             {
-                grad(perm[ii + i1 + perm[jj + j1]], gx1, gy1);
+                gradder(perm[ii + i1 + perm[jj + j1]], out gx1, out gy1);
                 t21 = t1 * t1;
                 t41 = t21 * t21;
                 n1 = t41 * (gx1 * x1 + gy1 * y1);
@@ -551,7 +551,7 @@ namespace Noise
             if (t2 < 0.0f) t42 = t22 = t2 = n2 = gx2 = gy2 = 0.0f; /* No influence */
             else
             {
-                grad(perm[ii + 1 + perm[jj + 1]], gx2, gy2);
+                gradder(perm[ii + 1 + perm[jj + 1]], out gx2, out gy2);
                 t22 = t2 * t2;
                 t42 = t22 * t22;
                 n2 = t42 * (gx2 * x2 + gy2 * y2);
@@ -686,7 +686,7 @@ namespace Noise
             if (t0 < 0.0f) n0 = t0 = t20 = t40 = gx0 = gy0 = gz0 = 0.0f;
             else
             {
-                grad(perm[ii + perm[jj + perm[kk]]], gx0, gy0, gz0);
+                gradder(perm[ii + perm[jj + perm[kk]]], out gx0, out gy0, out gz0);
                 t20 = t0 * t0;
                 t40 = t20 * t20;
                 n0 = t40 * (gx0 * x0 + gy0 * y0 + gz0 * z0);
@@ -697,7 +697,7 @@ namespace Noise
             if (t1 < 0.0f) n1 = t1 = t21 = t41 = gx1 = gy1 = gz1 = 0.0f;
             else
             {
-                grad(perm[ii + i1 + perm[jj + j1 + perm[kk + k1]]], gx1, gy1, gz1);
+                gradder(perm[ii + i1 + perm[jj + j1 + perm[kk + k1]]], out gx1, out gy1, out gz1);
                 t21 = t1 * t1;
                 t41 = t21 * t21;
                 n1 = t41 * (gx1 * x1 + gy1 * y1 + gz1 * z1);
@@ -708,7 +708,7 @@ namespace Noise
             if (t2 < 0.0f) n2 = t2 = t22 = t42 = gx2 = gy2 = gz2 = 0.0f;
             else
             {
-                grad(perm[ii + i2 + perm[jj + j2 + perm[kk + k2]]], gx2, gy2, gz2);
+                gradder(perm[ii + i2 + perm[jj + j2 + perm[kk + k2]]], out gx2, out gy2, out gz2);
                 t22 = t2 * t2;
                 t42 = t22 * t22;
                 n2 = t42 * (gx2 * x2 + gy2 * y2 + gz2 * z2);
@@ -719,7 +719,7 @@ namespace Noise
             if (t3 < 0.0f) n3 = t3 = t23 = t43 = gx3 = gy3 = gz3 = 0.0f;
             else
             {
-                grad(perm[ii + 1 + perm[jj + 1 + perm[kk + 1]]], gx3, gy3, gz3);
+                gradder(perm[ii + 1 + perm[jj + 1 + perm[kk + 1]]], out gx3, out gy3, out gz3);
                 t23 = t3 * t3;
                 t43 = t23 * t23;
                 n3 = t43 * (gx3 * x3 + gy3 * y3 + gz3 * z3);
@@ -783,7 +783,9 @@ namespace Noise
 
         public static void GenerateCurl(float x, float y, out float rx, out float ry)
         {
-            GenerateDerivitives(x, y, out float dx, out float dy, out float dz);
+            float dx, dy, dz;
+
+            GenerateDerivitives(x, y, out dx, out dy, out dz);
             rx = dz;
             ry = -dy;
         }
@@ -862,6 +864,40 @@ namespace Noise
             float v = h < 16 ? y : z;
             float w = h < 8 ? z : t;
             return ((h & 1) != 0 ? -u : u) + ((h & 2) != 0 ? -v : v) + ((h & 4) != 0 ? -w : w);
+        }
+
+        private static void gradder(int hash, out float x)
+        {
+            int h = hash & 15;
+            x = 1.0f + (h & 7);
+            if ((h & 8) != 0) x = -x;
+        }
+
+        private static void gradder(int hash, out float gx, out float gy)
+        {
+            int h = hash & 7;
+            gx = grad2lut[h, 0];
+            gy = grad2lut[h, 1];
+            return;
+        }
+
+        private static void gradder(int hash, out float gx, out float gy, out float gz)
+        {
+            int h = hash & 15;
+            gx = grad3lut[h, 0];
+            gy = grad3lut[h, 1];
+            gz = grad3lut[h, 2];
+            return;
+        }
+
+        private static void gradder(int hash, out float gx, out float gy, out float gz, out float gw)
+        {
+            int h = hash & 31;
+            gx = grad4lut[h, 0];
+            gy = grad4lut[h, 1];
+            gz = grad4lut[h, 2];
+            gw = grad4lut[h, 3];
+            return;
         }
 
         public static void gradrot(int hash, float sin_t, float cos_t, out float gx, out float gy)

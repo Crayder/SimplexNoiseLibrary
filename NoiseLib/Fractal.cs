@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Noise
 {
@@ -143,7 +141,9 @@ namespace Noise
 
             for (int i = 0; i < octaves; i++)
             {
-                Perlin.GenerateDerivitives(x * freq, out float nx, out float ny);
+                float nx, ny;
+
+                Perlin.GenerateDerivitives(x * freq, out nx, out ny);
 
                 rx += nx * amp;
                 ry += ny * amp;
@@ -161,7 +161,9 @@ namespace Noise
 
             for (int i = 0; i < octaves; i++)
             {
-                Perlin.GenerateDerivitives(x * freq, y * freq, out float nx, out float ny, out float nz);
+                float nx, ny, nz;
+
+                Perlin.GenerateDerivitives(x * freq, y * freq, out nx, out ny, out nz);
 
                 rx += nx * amp;
                 ry += ny * amp;
@@ -180,7 +182,10 @@ namespace Noise
 
             for (int i = 0; i < octaves; i++)
             {
-                Perlin.GenerateDerivitives(x * freq, y * freq, z * freq, out float nx, out float ny, out float nz, out float nw);
+                float nx, ny, nz, nw;
+                nx = ny = nz = nw = 0.0f;
+
+                Perlin.GenerateDerivitives(x * freq, y * freq, z * freq, out nx, out ny, out nz, out nw);
 
                 rx += nx * amp;
                 ry += ny * amp;
@@ -194,7 +199,8 @@ namespace Noise
 
         public static void GenerateCurl(float x, float y, out float rx, out float ry, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
         {
-            float dx = 0.0f, dy = 0.0f, dz = 0.0f;
+            float dx, dy, dz;
+
             GenerateDerivitives(x, y, out dx, out dy, out dz, octaves, lacunarity, gain);
             rx = dz;
             ry = -dy;
@@ -275,6 +281,7 @@ namespace Noise
                 freq *= lacunarity;
                 amp *= gain;
             }
+
             return sum;
         }
     }

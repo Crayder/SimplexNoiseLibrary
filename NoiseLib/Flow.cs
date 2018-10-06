@@ -4,33 +4,33 @@ namespace Noise
 {
     public class Flow
     {
-        public static float[,] Calc2D(int width, int height, float angle, float scale)
+        public static float[,] Calc(int width, int height, float angle, float scale = 1.0f)
         {
             float[,] values = new float[width, height];
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
-                    values[i, j] = Generate(i * scale, j * scale, angle) * 128 + 128;
+                    values[i, j] = Generate(i * scale, j * scale, angle);
             return values;
         }
 
-        public static float[,,] Calc3D(int width, int height, int length, float angle, float scale)
+        public static float[,,] Calc(int width, int height, int length, float angle, float scale = 1.0f)
         {
             float[,,] values = new float[width, height, length];
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                     for (int k = 0; k < length; k++)
-                        values[i, j, k] = Generate(i * scale, j * scale, k * scale, angle) * 128 + 128;
+                        values[i, j, k] = Generate(i * scale, j * scale, k * scale, angle);
             return values;
         }
 
-        public static float CalcPixel2D(int x, int y, float angle, float scale)
+        public static float CalcPixel(int x, int y, float angle, float scale = 1.0f)
         {
-            return Generate(x * scale, y * scale, angle) * 128 + 128;
+            return Generate(x * scale, y * scale, angle);
         }
 
-        public static float CalcPixel3D(int x, int y, int z, float angle, float scale)
+        public static float CalcPixel(int x, int y, int z, float angle, float scale = 1.0f)
         {
-            return Generate(x * scale, y * scale, z * scale, angle) * 128 + 128;
+            return Generate(x * scale, y * scale, z * scale, angle);
         }
 
         public static float Generate(float x, float y, float angle)
@@ -564,7 +564,9 @@ namespace Noise
 
         public static void GenerateCurl(float x, float y, float t, out float rx, out float ry)
         {
-            GenerateDerivitives(x, y, t, out float dx, out float dy, out float dz);
+            float dx, dy, dz;
+
+            GenerateDerivitives(x, y, t, out dx, out dy, out dz);
             rx = dz;
             ry = -dy;
         }

@@ -4,46 +4,46 @@ namespace Noise
 {
     public class Ridged
     {
-        public static float[] Calc1D(int width, float scale)
+        public static float[] Calc(int width, float scale = 1.0f)
         {
             float[] values = new float[width];
             for (int i = 0; i < width; i++)
-                values[i] = Generate(i * scale) * 128 + 128;
+                values[i] = Generate(i * scale);
             return values;
         }
 
-        public static float[,] Calc2D(int width, int height, float scale)
+        public static float[,] Calc(int width, int height, float scale = 1.0f)
         {
             float[,] values = new float[width, height];
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
-                    values[i, j] = Generate(i * scale, j * scale) * 128 + 128;
+                    values[i, j] = Generate(i * scale, j * scale);
             return values;
         }
 
-        public static float[,,] Calc3D(int width, int height, int length, float scale)
+        public static float[,,] Calc(int width, int height, int length, float scale = 1.0f)
         {
             float[,,] values = new float[width, height, length];
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
                     for (int k = 0; k < length; k++)
-                        values[i, j, k] = Generate(i * scale, j * scale, k * scale) * 128 + 128;
+                        values[i, j, k] = Generate(i * scale, j * scale, k * scale);
             return values;
         }
 
-        public static float CalcPixel1D(int x, float scale)
+        public static float CalcPixel(int x, float scale = 1.0f)
         {
-            return Generate(x * scale) * 128 + 128;
+            return Generate(x * scale);
         }
 
-        public static float CalcPixel2D(int x, int y, float scale)
+        public static float CalcPixel(int x, int y, float scale = 1.0f)
         {
-            return Generate(x * scale, y * scale) * 128 + 128;
+            return Generate(x * scale, y * scale);
         }
 
-        public static float CalcPixel3D(int x, int y, int z, float scale)
+        public static float CalcPixel(int x, int y, int z, float scale = 1.0f)
         {
-            return Generate(x * scale, y * scale, z * scale) * 128 + 128;
+            return Generate(x * scale, y * scale, z * scale);
         }
 
         static Ridged()
