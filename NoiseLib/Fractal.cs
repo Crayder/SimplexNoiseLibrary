@@ -132,6 +132,7 @@ namespace Noise
 
             return sum;
         }
+
         public static void GenerateDerivatives(float x, out float rx, out float ry, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
         {
             float freq = 1.0f;
@@ -152,6 +153,7 @@ namespace Noise
                 amp *= gain;
             }
         }
+
         public static void GenerateDerivatives(float x, float y, out float rx, out float ry, out float rz, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
         {
             float freq = 1.0f;

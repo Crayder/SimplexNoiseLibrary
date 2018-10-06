@@ -31,21 +31,6 @@ namespace Noise
             return values;
         }
 
-        public static float CalcPixel(int x, float scale = 1.0f)
-        {
-            return Generate(x * scale);
-        }
-
-        public static float CalcPixel(int x, int y, float scale = 1.0f)
-        {
-            return Generate(x * scale, y * scale);
-        }
-
-        public static float CalcPixel(int x, int y, int z, float scale = 1.0f)
-        {
-            return Generate(x * scale, y * scale, z * scale);
-        }
-
         static Perlin()
         {
             perm = new byte[permOriginal.Length];
@@ -788,6 +773,26 @@ namespace Noise
             GenerateDerivatives(x, y, out dx, out dy, out dz);
             rx = dz;
             ry = -dy;
+        }
+
+        public static float GenerateRidged(float x)
+        {
+            return 1.0f - Math.Abs(Generate(x));
+        }
+
+        public static float GenerateRidged(float x, float y)
+        {
+            return 1.0f - Math.Abs(Generate(x, y));
+        }
+
+        public static float GenerateRidged(float x, float y, float z)
+        {
+            return 1.0f - Math.Abs(Generate(x, y, z));
+        }
+
+        public static float GenerateRidged(float x, float y, float z, float w)
+        {
+            return 1.0f - Math.Abs(Generate(x, y, z, w));
         }
 
         public static byte[] perm;

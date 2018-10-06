@@ -23,16 +23,6 @@ namespace Noise
             return values;
         }
 
-        public static float CalcPixel(int x, int y, float angle, float scale = 1.0f)
-        {
-            return Generate(x * scale, y * scale, angle);
-        }
-
-        public static float CalcPixel(int x, int y, int z, float angle, float scale = 1.0f)
-        {
-            return Generate(x * scale, y * scale, z * scale, angle);
-        }
-
         public static float Generate(float x, float y, float angle)
         {
             const float F2 = 0.366025403f;
@@ -569,6 +559,16 @@ namespace Noise
             GenerateDerivatives(x, y, t, out dx, out dy, out dz);
             rx = dz;
             ry = -dy;
+        }
+
+        public static float GenerateRidged(float x, float y, float angle)
+        {
+            return 1.0f - Math.Abs(Generate(x, y, angle));
+        }
+
+        public static float GenerateRidged(float x, float y, float z, float angle)
+        {
+            return 1.0f - Math.Abs(Generate(x, y, z, angle));
         }
 
         private static int FastFloor(float x)
