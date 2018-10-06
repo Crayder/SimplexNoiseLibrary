@@ -428,7 +428,7 @@ namespace Noise
             return 27.0f * (n0 + n1 + n2 + n3 + n4); // TODO: The scale factor is preliminary!
         }
 
-        public static void GenerateDerivitives(float x, out float rx, out float ry)
+        public static void GenerateDerivatives(float x, out float rx, out float ry)
         {
             int i0 = FastFloor(x);
             int i1 = i0 + 1;
@@ -476,7 +476,7 @@ namespace Noise
 //#endif
         }
 
-        public static void GenerateDerivitives(float x, float y, out float rx, out float ry, out float rz)
+        public static void GenerateDerivatives(float x, float y, out float rx, out float ry, out float rz)
         {
             const float F2 = 0.366025403f;
             const float G2 = 0.211324865f;
@@ -596,7 +596,7 @@ namespace Noise
                                 //#endif
         }
 
-        public static void GenerateDerivitives(float x, float y, float z, out float rx, out float ry, out float rz, out float rw)
+        public static void GenerateDerivatives(float x, float y, float z, out float rx, out float ry, out float rz, out float rw)
         {
             const float F3 = 0.333333333f;
             const float G3 = 0.166666667f;
@@ -785,7 +785,7 @@ namespace Noise
         {
             float dx, dy, dz;
 
-            GenerateDerivitives(x, y, out dx, out dy, out dz);
+            GenerateDerivatives(x, y, out dx, out dy, out dz);
             rx = dz;
             ry = -dy;
         }

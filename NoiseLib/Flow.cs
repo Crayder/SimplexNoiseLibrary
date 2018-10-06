@@ -256,7 +256,7 @@ namespace Noise
             return 28.0f * (n0 + n1 + n2 + n3);
         }
 
-        public static void GenerateDerivitives(float x, float y, float angle, out float rx, out float ry, out float rz)
+        public static void GenerateDerivatives(float x, float y, float angle, out float rx, out float ry, out float rz)
         {
             const float F2 = 0.366025403f;
             const float G2 = 0.211324865f;
@@ -375,7 +375,7 @@ namespace Noise
             ry = dnoise_dx;
             rz = dnoise_dy;
         }
-        public static void GenerateDerivitives(float x, float y, float z, float angle, out float rx, out float ry, out float rz, out float rw)
+        public static void GenerateDerivatives(float x, float y, float z, float angle, out float rx, out float ry, out float rz, out float rw)
         {
             const float F3 = 0.333333333f;
             const float G3 = 0.166666667f;
@@ -566,7 +566,7 @@ namespace Noise
         {
             float dx, dy, dz;
 
-            GenerateDerivitives(x, y, t, out dx, out dy, out dz);
+            GenerateDerivatives(x, y, t, out dx, out dy, out dz);
             rx = dz;
             ry = -dy;
         }

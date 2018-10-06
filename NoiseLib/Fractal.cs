@@ -132,7 +132,7 @@ namespace Noise
 
             return sum;
         }
-        public static void GenerateDerivitives(float x, out float rx, out float ry, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static void GenerateDerivatives(float x, out float rx, out float ry, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
         {
             float freq = 1.0f;
             float amp = 0.5f;
@@ -143,7 +143,7 @@ namespace Noise
             {
                 float nx, ny;
 
-                Perlin.GenerateDerivitives(x * freq, out nx, out ny);
+                Perlin.GenerateDerivatives(x * freq, out nx, out ny);
 
                 rx += nx * amp;
                 ry += ny * amp;
@@ -152,7 +152,7 @@ namespace Noise
                 amp *= gain;
             }
         }
-        public static void GenerateDerivitives(float x, float y, out float rx, out float ry, out float rz, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static void GenerateDerivatives(float x, float y, out float rx, out float ry, out float rz, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
         {
             float freq = 1.0f;
             float amp = 0.5f;
@@ -163,7 +163,7 @@ namespace Noise
             {
                 float nx, ny, nz;
 
-                Perlin.GenerateDerivitives(x * freq, y * freq, out nx, out ny, out nz);
+                Perlin.GenerateDerivatives(x * freq, y * freq, out nx, out ny, out nz);
 
                 rx += nx * amp;
                 ry += ny * amp;
@@ -173,7 +173,7 @@ namespace Noise
                 amp *= gain;
             }
         }
-        public static void GenerateDerivitives(float x, float y, float z, out float rx, out float ry, out float rz, out float rw, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static void GenerateDerivatives(float x, float y, float z, out float rx, out float ry, out float rz, out float rw, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
         {
             float freq = 1.0f;
             float amp = 0.5f;
@@ -185,7 +185,7 @@ namespace Noise
                 float nx, ny, nz, nw;
                 nx = ny = nz = nw = 0.0f;
 
-                Perlin.GenerateDerivitives(x * freq, y * freq, z * freq, out nx, out ny, out nz, out nw);
+                Perlin.GenerateDerivatives(x * freq, y * freq, z * freq, out nx, out ny, out nz, out nw);
 
                 rx += nx * amp;
                 ry += ny * amp;
@@ -201,7 +201,7 @@ namespace Noise
         {
             float dx, dy, dz;
 
-            GenerateDerivitives(x, y, out dx, out dy, out dz, octaves, lacunarity, gain);
+            GenerateDerivatives(x, y, out dx, out dy, out dz, octaves, lacunarity, gain);
             rx = dz;
             ry = -dy;
         }
