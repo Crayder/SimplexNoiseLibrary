@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Noise
 { 
@@ -29,6 +30,21 @@ namespace Noise
                     for (int k = 0; k < length; k++)
                         values[i, j, k] = Generate(i * scale, j * scale, k * scale);
             return values;
+        }
+
+        public static float CalcPixel(int x, float scale = 1.0f)
+        {
+            return Generate(x * scale);
+        }
+
+        public static float CalcPixel(int x, int y, float scale = 1.0f)
+        {
+            return Generate(x * scale, y * scale);
+        }
+
+        public static float CalcPixel(int x, int y, int z, float scale = 1.0f)
+        {
+            return Generate(x * scale, y * scale, z * scale);
         }
 
         static Perlin()
@@ -81,6 +97,7 @@ namespace Noise
             n1 = t1 * t1 * grad(perm[i1 & 0xff], x1);
             // The maximum value of this noise is 8*(3/4)^4 = 2.53125
             // A factor of 0.395 scales to fit exactly within [-1,1]
+
             return 0.395f * (n0 + n1);
         }
 
@@ -575,9 +592,9 @@ namespace Noise
                 ry = dnoise_dx;
                 rz = dnoise_dy;
             #else*/
-            rx = 40.0f * (n0 + n1 + n2);
-            ry = dnoise_dx;
-            rz = dnoise_dy;     // TODO: The scale factor is preliminary!
+            rx = 40.0f * (n0 + n1 + n2) * 1.72f;
+            ry = (dnoise_dx - 0.175f) / 2.675f;
+            rz = (dnoise_dy - 0.175f) / 2.675f;     // TODO: The scale factor is preliminary!
                                 //#endif
         }
 
@@ -761,18 +778,20 @@ namespace Noise
             dnoise_dz *= 28.0f;
 
             rx = rnoise;
-            ry = dnoise_dx;
-            rz = dnoise_dy;
-            rw = dnoise_dz;
+            ry = dnoise_dx / 4.5f;
+            rz = dnoise_dy / 4.5f;
+            rw = dnoise_dz / 4.5f;
         }
 
-        public static void GenerateCurl(float x, float y, out float rx, out float ry)
+        public static float GenerateCurl(float x, float y, out float rx, out float ry)
         {
             float dx, dy, dz;
 
             GenerateDerivatives(x, y, out dx, out dy, out dz);
             rx = dz;
             ry = -dy;
+
+            return dx;
         }
 
         public static float GenerateRidged(float x)

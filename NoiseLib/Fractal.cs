@@ -4,10 +4,9 @@ namespace Noise
 {
     public class Fractal
     {
-        public static float Generate(float x, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float Generate(float x, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
 
             for (int i = 0; i < octaves; i++)
@@ -20,10 +19,9 @@ namespace Noise
 
             return sum;
         }
-        public static float Generate(float x, float y, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float Generate(float x, float y, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
 
             for (int i = 0; i < octaves; i++)
@@ -36,10 +34,9 @@ namespace Noise
 
             return sum;
         }
-        public static float Generate(float x, float y, float z, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float frequency = 1.0f)
+        public static float Generate(float x, float y, float z, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = frequency;
             float amp = 0.5f;
 
             for (int i = 0; i < octaves; i++)
@@ -52,10 +49,9 @@ namespace Noise
 
             return sum;
         }
-        public static float Generate(float x, float y, float z, float w, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float Generate(float x, float y, float z, float w, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
 
             for (int i = 0; i < octaves; i++)
@@ -68,10 +64,9 @@ namespace Noise
 
             return sum;
         }
-        public static float GenerateWorley(float x, float y, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float GenerateWorley(float x, float y, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
 
             for (int i = 0; i < octaves; i++)
@@ -84,10 +79,9 @@ namespace Noise
 
             return sum;
         }
-        public static float GenerateWorley(float x, float y, float z, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float GenerateWorley(float x, float y, float z, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
 
             for (int i = 0; i < octaves; i++)
@@ -100,10 +94,9 @@ namespace Noise
 
             return sum;
         }
-        public static float GenerateWorleySmooth(float x, float y, float falloff, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float GenerateWorleySmooth(float x, float y, float falloff, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
 
             for (int i = 0; i < octaves; i++)
@@ -116,10 +109,9 @@ namespace Noise
 
             return sum;
         }
-        public static float GenerateWorleySmooth(float x, float y, float z, float falloff, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float GenerateWorleySmooth(float x, float y, float z, float falloff, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
 
             for (int i = 0; i < octaves; i++)
@@ -132,10 +124,8 @@ namespace Noise
 
             return sum;
         }
-
-        public static void GenerateDerivatives(float x, out float rx, out float ry, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static void GenerateDerivatives(float x, out float rx, out float ry, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
-            float freq = 1.0f;
             float amp = 0.5f;
 
             rx = ry = 0.0f;
@@ -153,10 +143,8 @@ namespace Noise
                 amp *= gain;
             }
         }
-
-        public static void GenerateDerivatives(float x, float y, out float rx, out float ry, out float rz, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static void GenerateDerivatives(float x, float y, out float rx, out float ry, out float rz, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
-            float freq = 1.0f;
             float amp = 0.5f;
 
             rx = ry = rz = 0.0f;
@@ -175,9 +163,8 @@ namespace Noise
                 amp *= gain;
             }
         }
-        public static void GenerateDerivatives(float x, float y, float z, out float rx, out float ry, out float rz, out float rw, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static void GenerateDerivatives(float x, float y, float z, out float rx, out float ry, out float rz, out float rw, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
-            float freq = 1.0f;
             float amp = 0.5f;
 
             rx = ry = rz = rw = 0.0f;
@@ -199,13 +186,15 @@ namespace Noise
             }
         }
 
-        public static void GenerateCurl(float x, float y, out float rx, out float ry, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float GenerateCurl(float x, float y, out float rx, out float ry, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float dx, dy, dz;
 
             GenerateDerivatives(x, y, out dx, out dy, out dz, octaves, lacunarity, gain);
             rx = dz;
             ry = -dy;
+
+            return dx;
         }
 
         private static float ridge(float h, float offset)
@@ -214,10 +203,9 @@ namespace Noise
             return h * h;
         }
 
-        public static float GenerateRidged(float x, float ridgeOffset, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float GenerateRidged(float x, float ridgeOffset, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
             float prev = 1.0f;
 
@@ -232,10 +220,9 @@ namespace Noise
             return sum;
         }
 
-        public static float GenerateRidged(float x, float y, float ridgeOffset, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float GenerateRidged(float x, float y, float ridgeOffset, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
             float prev = 1.0f;
 
@@ -250,10 +237,9 @@ namespace Noise
             return sum;
         }
 
-        public static float GenerateRidged(float x, float y, float z, float ridgeOffset, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float GenerateRidged(float x, float y, float z, float ridgeOffset, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
             float prev = 1.0f;
 
@@ -268,10 +254,9 @@ namespace Noise
             return sum;
         }
 
-        public static float GenerateRidged(float x, float y, float z, float w, float ridgeOffset, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f)
+        public static float GenerateRidged(float x, float y, float z, float w, float ridgeOffset, int octaves = 4, float lacunarity = 2.0f, float gain = 0.5f, float freq = 1.0f)
         {
             float sum = 0.0f;
-            float freq = 1.0f;
             float amp = 0.5f;
             float prev = 1.0f;
 

@@ -23,6 +23,16 @@ namespace Noise
             return values;
         }
 
+        public static float CalcPixel(int x, int y, float angle, float scale = 1.0f)
+        {
+            return Generate(x * scale, y * scale, angle);
+        }
+
+        public static float CalcPixel(int x, int y, int z, float angle, float scale = 1.0f)
+        {
+            return Generate(x * scale, y * scale, z * scale, angle);
+        }
+
         public static float Generate(float x, float y, float angle)
         {
             const float F2 = 0.366025403f;
@@ -107,7 +117,7 @@ namespace Noise
 
             /* Add contributions from each corner to get the final noise value.
             * The result is scaled to return values in the interval [- 1,1]. */
-            return 40.0f * (n0 + n1 + n2);
+            return 40.0f * (n0 + n1 + n2) / 51.32f;
         }
 
         public static float Generate(float x, float y, float z, float angle)
@@ -243,7 +253,7 @@ namespace Noise
 
             /*  Add contributions from each corner to get the final noise value.
              * The result is scaled to return values in the range [- 1,1] */
-            return 28.0f * (n0 + n1 + n2 + n3);
+            return 28.0f * (n0 + n1 + n2 + n3) / 67.4f;
         }
 
         public static void GenerateDerivatives(float x, float y, float angle, out float rx, out float ry, out float rz)
@@ -361,9 +371,9 @@ namespace Noise
             dnoise_dx *= 40.0f; /* Scale derivative to match the noise scaling */
             dnoise_dy *= 40.0f;
 
-            rx = noise;
-            ry = dnoise_dx;
-            rz = dnoise_dy;
+            rx = noise / 53.0f;
+            ry = dnoise_dx / 315.0f;
+            rz = dnoise_dy / 315.0f;
         }
         public static void GenerateDerivatives(float x, float y, float z, float angle, out float rx, out float ry, out float rz, out float rw)
         {
@@ -546,29 +556,21 @@ namespace Noise
             dnoise_dy *= 28.0f;
             dnoise_dz *= 28.0f;
 
-            rx = noise;
-            ry = dnoise_dx;
-            rz = dnoise_dy;
-            rw = dnoise_dz;
+            rx = noise / 90.0f;
+            ry = dnoise_dx / 470.0f;
+            rz = dnoise_dy / 470.0f;
+            rw = dnoise_dz / 470.0f;
         }
 
-        public static void GenerateCurl(float x, float y, float t, out float rx, out float ry)
+        public static float GenerateCurl(float x, float y, float t, out float rx, out float ry)
         {
             float dx, dy, dz;
 
             GenerateDerivatives(x, y, t, out dx, out dy, out dz);
             rx = dz;
             ry = -dy;
-        }
 
-        public static float GenerateRidged(float x, float y, float angle)
-        {
-            return 1.0f - Math.Abs(Generate(x, y, angle));
-        }
-
-        public static float GenerateRidged(float x, float y, float z, float angle)
-        {
-            return 1.0f - Math.Abs(Generate(x, y, z, angle));
+            return dx;
         }
 
         private static int FastFloor(float x)
